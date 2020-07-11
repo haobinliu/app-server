@@ -1,0 +1,2 @@
+2020-7-10 liubinhao 项目构建
+2020-7-10 liubinhao member对应实体类  Member.java
