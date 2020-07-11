@@ -1,0 +1,21 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: app-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.112.11.90:3306/app-server?useUnicode=true&characterEncoding=utf-8&tinyInt1isBit=true
+    username: root
+    password: Lbh1215_
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-timeout: 100000
+      maximum-pool-size: 15
+      auto-commit: true
+
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
