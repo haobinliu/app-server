@@ -14,7 +14,17 @@ spring:
       connection-timeout: 100000
       maximum-pool-size: 15
       auto-commit: true
-
+  redis:
+    host: 192.168.11.129
+    port: 6379
+    database: 0
+    timeout: 10000
+    lettuce:
+      pool:
+        min-idle: 0
+        max-active: 8
+        max-idle: 8
+        max-wait: -1
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
