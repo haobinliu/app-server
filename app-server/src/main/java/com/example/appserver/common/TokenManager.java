@@ -1,18 +1,21 @@
 package com.example.appserver.common;
 
-import com.example.appserver.Dict.Constants;
+import com.example.appserver.dict.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author dsl
+ */
 @Component
 public class TokenManager {
-    @Autowired
-    private RedisTemplate<Object,Object> redisTemplate;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
     /**
      * 生成一个令牌
      * @param userId 用户ID
@@ -27,7 +30,6 @@ public class TokenManager {
         //将生成的token存入redis
         String key = userId + "_token";
         redisTemplate.opsForValue().set(key,token, Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
-
         return token;
     }
 
@@ -41,24 +43,25 @@ public class TokenManager {
         if(token == null || "".equals(token)){
             return false;
         }
-
         String[] tokenArr = token.split("_");
-
         if(tokenArr.length != 3){
             return false;
         }
-
         //从redis取出token进行检查
         String key = tokenArr[0]+"_token";
-        String or_token = (String)redisTemplate.opsForValue().get(key);
-        if(or_token == null || !"".equals(or_token)){
-            return false;
-        }else if(!token.equals(or_token)){
+
+//        String or_token = (String)redisTemplate.opsForValue().get(key);
+//        if(or_token == null || !"".equals(or_token)){
+//            return false;
+//        }else if(!token.equals(or_token)){
+//            return false;
+//        }
+        Boolean hasKey = redisTemplate.hasKey(key);
+        if (!hasKey) {
             return false;
         }
-
         //当校验通过时，为确保保持活性，需要重新写入token
-        redisTemplate.opsForValue().set(key,token, Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
+        redisTemplate.opsForValue().set(key, token, Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
         return true;
     }
 
@@ -80,7 +83,7 @@ public class TokenManager {
 
         //从redis取出token进行检查
         String key = tokenArr[0]+"_token";
-        String or_token = (String)redisTemplate.opsForValue().get(key);
+        String or_token = redisTemplate.opsForValue().get(key);
         if(or_token == null || !"".equals(or_token)){
             return false;
         }else if(!token.equals(or_token)){
