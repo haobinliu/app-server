@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.appserver.mapper.ArticleSubCommentMapper">
+  <resultMap id="BaseResultMap" type="com.example.appserver.model.entity.ArticleSubComment">
+    <id column="sub_comment_id" jdbcType="INTEGER" property="subCommentId" />
+    <result column="sub_comment_content" jdbcType="VARCHAR" property="subCommentContent" />
+    <result column="parent_comment_id" jdbcType="INTEGER" property="parentCommentId" />
+    <result column="comment_user_id" jdbcType="INTEGER" property="commentUserId" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="comment_reply_user_id" jdbcType="INTEGER" property="commentReplyUserId" />
+    <result column="reply_user_nick_name" jdbcType="VARCHAR" property="replyUserNickName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid" />
+    <result column="favor_count" jdbcType="INTEGER" property="favorCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sub_comment_id, sub_comment_content, parent_comment_id, comment_user_id, nick_name, 
+    comment_reply_user_id, reply_user_nick_name, create_time, is_valid, favor_count
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from article_sub_comment
+    where sub_comment_id = #{subCommentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article_sub_comment
+    where sub_comment_id = #{subCommentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.appserver.model.entity.ArticleSubComment">
+    insert into article_sub_comment (sub_comment_id, sub_comment_content, 
+      parent_comment_id, comment_user_id, nick_name, 
+      comment_reply_user_id, reply_user_nick_name, 
+      create_time, is_valid, favor_count
+      )
+    values (#{subCommentId,jdbcType=INTEGER}, #{subCommentContent,jdbcType=VARCHAR}, 
+      #{parentCommentId,jdbcType=INTEGER}, #{commentUserId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, 
+      #{commentReplyUserId,jdbcType=INTEGER}, #{replyUserNickName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{isValid,jdbcType=TINYINT}, #{favorCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.appserver.model.entity.ArticleSubComment">
+    insert into article_sub_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subCommentId != null">
+        sub_comment_id,
+      </if>
+      <if test="subCommentContent != null">
+        sub_comment_content,
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id,
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="commentReplyUserId != null">
+        comment_reply_user_id,
+      </if>
+      <if test="replyUserNickName != null">
+        reply_user_nick_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="isValid != null">
+        is_valid,
+      </if>
+      <if test="favorCount != null">
+        favor_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subCommentId != null">
+        #{subCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="subCommentContent != null">
+        #{subCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCommentId != null">
+        #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserId != null">
+        #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentReplyUserId != null">
+        #{commentReplyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserNickName != null">
+        #{replyUserNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="favorCount != null">
+        #{favorCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.appserver.model.entity.ArticleSubComment">
+    update article_sub_comment
+    <set>
+      <if test="subCommentContent != null">
+        sub_comment_content = #{subCommentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCommentId != null">
+        parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="commentUserId != null">
+        comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentReplyUserId != null">
+        comment_reply_user_id = #{commentReplyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserNickName != null">
+        reply_user_nick_name = #{replyUserNickName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isValid != null">
+        is_valid = #{isValid,jdbcType=TINYINT},
+      </if>
+      <if test="favorCount != null">
+        favor_count = #{favorCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where sub_comment_id = #{subCommentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.appserver.model.entity.ArticleSubComment">
+    update article_sub_comment
+    set sub_comment_content = #{subCommentContent,jdbcType=VARCHAR},
+      parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      comment_user_id = #{commentUserId,jdbcType=INTEGER},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      comment_reply_user_id = #{commentReplyUserId,jdbcType=INTEGER},
+      reply_user_nick_name = #{replyUserNickName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      is_valid = #{isValid,jdbcType=TINYINT},
+      favor_count = #{favorCount,jdbcType=INTEGER}
+    where sub_comment_id = #{subCommentId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.appserver.mapper.ArticleClassifyMapper">
+  <resultMap id="BaseResultMap" type="com.example.appserver.model.entity.ArticleClassify">
+    <id column="classify_id" jdbcType="INTEGER" property="classifyId" />
+    <result column="classify_name" jdbcType="VARCHAR" property="classifyName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="modify_user_id" jdbcType="INTEGER" property="modifyUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    classify_id, classify_name, create_time, update_time, modify_user_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from article_classify
+    where classify_id = #{classifyId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from article_classify
+    where classify_id = #{classifyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.appserver.model.entity.ArticleClassify">
+    insert into article_classify (classify_id, classify_name, create_time, 
+      update_time, modify_user_id)
+    values (#{classifyId,jdbcType=INTEGER}, #{classifyName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{modifyUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.appserver.model.entity.ArticleClassify">
+    insert into article_classify
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        classify_id,
+      </if>
+      <if test="classifyName != null">
+        classify_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classifyId != null">
+        #{classifyId,jdbcType=INTEGER},
+      </if>
+      <if test="classifyName != null">
+        #{classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        #{modifyUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.appserver.model.entity.ArticleClassify">
+    update article_classify
+    <set>
+      <if test="classifyName != null">
+        classify_name = #{classifyName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyUserId != null">
+        modify_user_id = #{modifyUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where classify_id = #{classifyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.appserver.model.entity.ArticleClassify">
+    update article_classify
+    set classify_name = #{classifyName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      modify_user_id = #{modifyUserId,jdbcType=INTEGER}
+    where classify_id = #{classifyId,jdbcType=INTEGER}
+  </update>
+</mapper>
