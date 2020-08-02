@@ -30,12 +30,26 @@ public class CommonResponse<T> {
         this.msg  = msg;
         this.data = data;
     }
+    public CommonResponse(){
+        this.code = 200;
+        this.msg  = "success";
+        this.data = null;
+    }
 
-    public CommonResponse succ(T data){
+    public static <T> CommonResponse<T> ok(T data){
         return new CommonResponse(data);
     }
 
-    public CommonResponse fail(String msg){
+    public static <T> CommonResponse<T> ok(){
+        return new CommonResponse();
+    }
+
+    public static <T> CommonResponse<T> fail(String msg){
         return new CommonResponse(500,msg,null);
     }
+
+    public static <T> CommonResponse<T> fail(){
+        return new CommonResponse(500,"内部服务异常",null);
+    }
+
 }

@@ -17,11 +17,11 @@ public class UserAuthController {
 
     @PostMapping("/login")
     public CommonResponse login(@RequestBody UserAuthReq req){
-        return new CommonResponse().succ(req);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/regist")
     public CommonResponse regist(@RequestBody UserAuthReq req){
-        return new CommonResponse().succ(req);
+        return CommonResponse.ok();
     }
 }

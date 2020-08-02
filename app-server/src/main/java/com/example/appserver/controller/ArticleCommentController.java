@@ -16,16 +16,16 @@ public class ArticleCommentController {
 
     @PostMapping("/publish")
     public CommonResponse publishComment(@RequestBody ArticleComment comment){
-        return new CommonResponse().succ(comment);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/drop")
     public CommonResponse dropComment(@RequestBody DropCommentReq req){
-        return new CommonResponse().succ(req);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/favor")
     public CommonResponse favorComment(@RequestBody DropCommentReq req){
-        return new CommonResponse().succ(req);
+        return CommonResponse.ok();
     }
 }

@@ -16,27 +16,27 @@ public class ArticleContrller {
 
     @PostMapping("/list")
     public CommonResponse exhibitArticle(@RequestBody ArticleSearchReq req){
-        return new CommonResponse().succ(req);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/publish")
     public CommonResponse publishArticle(@RequestBody Article article){
-        return new CommonResponse().succ(article);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/edit")
     public CommonResponse editArticle(@RequestBody Article article){
-        return new CommonResponse().succ(article);
+        return CommonResponse.ok();
     }
 
     @PostMapping("/drop")
     public CommonResponse dropArticle(@RequestParam Integer articleId){
-        return new CommonResponse().succ(articleId);
+        return CommonResponse.ok();
     }
 
     @GetMapping("/favor")
     public CommonResponse favorArticle(@RequestParam Integer articleId){
-        return  new CommonResponse().succ(articleId);
+        return CommonResponse.ok();
     }
 
 }

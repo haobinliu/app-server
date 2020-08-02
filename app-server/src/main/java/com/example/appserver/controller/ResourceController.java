@@ -15,6 +15,6 @@ public class ResourceController {
 
     @PostMapping("/upload")
     public CommonResponse uploadFile(@RequestBody MultipartFile file){
-        return new CommonResponse().succ(file);
+        return CommonResponse.ok();
     }
 }
