@@ -16,7 +16,7 @@
     <result column="user_status" jdbcType="BIT" property="userStatus" />
   </resultMap>
 
-  <select id="checkUserinfo" resultMap="BaseResultMap">
+  <select id="checkUserinfo" parameterType="com.example.appserver.model.req.UserAuthReq" resultMap="BaseResultMap">
     select * from user
     where 1=1
     <if test="nickName! = null and nickNamr !=''">and nick_name = #{nickName}</if>
