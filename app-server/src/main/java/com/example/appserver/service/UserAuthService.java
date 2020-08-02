@@ -6,4 +6,8 @@ import com.example.appserver.model.req.UserAuthReq;
 public interface UserAuthService {
 
     public User login(UserAuthReq userAuthReq);
+
+    Integer registCheck(UserAuthReq userAuthReq);
+
+    Integer register(UserAuthReq userAuthReq);
 }

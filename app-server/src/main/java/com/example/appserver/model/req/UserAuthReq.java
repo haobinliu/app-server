@@ -14,7 +14,7 @@ public class UserAuthReq {
     /**
      * 登录
      */
-    private String userName;
+    private String nickName;
     private String passWord;
 
     /**
@@ -31,4 +31,6 @@ public class UserAuthReq {
     private Date birthday;
     //非必填
     private String city;
+
+
 }

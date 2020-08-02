@@ -6,7 +6,7 @@ import com.example.appserver.model.req.UserAuthReq;
 public interface UserMapper {
     User checkUserinfo(UserAuthReq userAuthReq);
 
-    int insert(User record);
+    Integer registCheck(UserAuthReq userAuthReq);
 
-    int insertSelective(User record);
+    Integer insertSelective(User user);
 }

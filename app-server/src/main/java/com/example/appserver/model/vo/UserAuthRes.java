@@ -19,21 +19,21 @@ public class UserAuthRes {
 
     private Date birthday;
 
-    private Boolean sex;
+    private Integer sex;
 
     private Byte age;
 
     private Boolean userStatus;
 
-    private String toke;
+    private String token;
 
     public UserAuthRes(User user){
         this.userId = user.getUserId();
         this.nickName = user.getNickName();
         this.email = user.getEmail();
         this.phone = user.getPhone();
-        this.city = this.getCity();
-        this.birthday = this.getBirthday();
+        this.city = user.getCity();
+        this.birthday = user.getBirthday();
         this.sex = user.getSex();
         this.userStatus = user.getUserStatus();
     }

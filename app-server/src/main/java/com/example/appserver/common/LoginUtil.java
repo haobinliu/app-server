@@ -77,7 +77,6 @@ public class LoginUtil
         user.setPassWord(req.getPassWord());
 
         String encodePassWord = decrybtPas(user);
-
         req.setPassWord(encodePassWord);
 
         return req;
