@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * 允许跨域
- * @author alan.zhao
+ * @author liubh
  */
 @WebFilter(filterName = "CorsFilter")
 @Configuration

@@ -10,12 +10,13 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="view_count" jdbcType="INTEGER" property="viewCount" />
     <result column="favor_count" jdbcType="INTEGER" property="favorCount" />
+    <result column="is_valid" jdbcType="TINYINT" property="isValid"/>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.appserver.model.entity.Article">
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
   <sql id="Base_Column_List">
-    article_id, title, classify_id, user_id, create_time, update_time, view_count, favor_count
+    article_id, title, classify_id, user_id, create_time, update_time, view_count, favor_count, is_valid
   </sql>
   <sql id="Blob_Column_List">
     content
@@ -27,11 +28,9 @@
     <include refid="Blob_Column_List" />
     from article
     where article_id = #{articleId,jdbcType=INTEGER}
+    and is_valid = 1
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from article
-    where article_id = #{articleId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.example.appserver.model.entity.Article">
     insert into article (article_id, title, classify_id, 
       user_id, create_time, update_time, 
@@ -42,97 +41,6 @@
       #{viewCount,jdbcType=INTEGER}, #{favorCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.appserver.model.entity.Article">
-    insert into article
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        article_id,
-      </if>
-      <if test="title != null">
-        title,
-      </if>
-      <if test="classifyId != null">
-        classify_id,
-      </if>
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-      <if test="viewCount != null">
-        view_count,
-      </if>
-      <if test="favorCount != null">
-        favor_count,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="articleId != null">
-        #{articleId,jdbcType=INTEGER},
-      </if>
-      <if test="title != null">
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="classifyId != null">
-        #{classifyId,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="viewCount != null">
-        #{viewCount,jdbcType=INTEGER},
-      </if>
-      <if test="favorCount != null">
-        #{favorCount,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.appserver.model.entity.Article">
-    update article
-    <set>
-      <if test="title != null">
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="classifyId != null">
-        classify_id = #{classifyId,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="viewCount != null">
-        view_count = #{viewCount,jdbcType=INTEGER},
-      </if>
-      <if test="favorCount != null">
-        favor_count = #{favorCount,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where article_id = #{articleId,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.appserver.model.entity.Article">
     update article
     set title = #{title,jdbcType=VARCHAR},
@@ -156,4 +64,20 @@
       favor_count = #{favorCount,jdbcType=INTEGER}
     where article_id = #{articleId,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where user_id = #{userId,jdbcType=INTEGER}
+    and is_valid = 1
+  </select>
+
+  <update id="setIsValidByArticleId" parameterType="java.lang.Integer">
+    update set is_valid = 0
+    where article_id = #{articleId,jdbcType=INTEGER}
+  </update>
+
 </mapper>
