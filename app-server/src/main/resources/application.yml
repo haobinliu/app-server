@@ -12,7 +12,7 @@ spring:
     hikari:
       connection-timeout: 100000
       maximum-pool-size: 15
-      auto-commit: true
+      auto-commit: on
   redis:
     host: 47.93.17.114
     port: 6379

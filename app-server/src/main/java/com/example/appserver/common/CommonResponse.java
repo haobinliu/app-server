@@ -5,9 +5,6 @@ import lombok.Data;
 /**
  * @author liubinhao
  * @date 2020/7/11
- *
- * @Description
- *
  *General response class
  *code  200 success
  *      500 error
@@ -36,20 +33,19 @@ public class CommonResponse<T> {
         this.data = null;
     }
 
-    public static <T> CommonResponse<T> ok(T data){
-        return new CommonResponse(data);
+    public static <R> CommonResponse<R> ok(R data){
+        return new CommonResponse<R>(data);
     }
 
-    public static <T> CommonResponse<T> ok(){
-        return new CommonResponse();
+    public static <R> CommonResponse<R> ok(){
+        return new CommonResponse<R>();
     }
 
-    public static <T> CommonResponse<T> fail(String msg){
-        return new CommonResponse(500,msg,null);
+    public static <R> CommonResponse<R> fail(String msg){
+        return new CommonResponse<R>(500,msg,null);
     }
 
-    public static <T> CommonResponse<T> fail(){
-        return new CommonResponse(500,"内部服务异常",null);
+    public static <R> CommonResponse<R> fail(){
+        return new CommonResponse<R>(500,"内部服务异常",null);
     }
-
 }
