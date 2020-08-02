@@ -1,8 +1,10 @@
 package com.example.appserver.common;
 
-import com.example.appserver.Dict.Constants;
-import com.example.appserver.domain.ArchUser;
-import org.omg.IOP.ENCODING_CDR_ENCAPS;
+import com.example.appserver.common.dict.Constants;
+import com.example.appserver.model.entity.User;
+import com.example.appserver.model.req.UserAuthReq;
+import com.example.appserver.service.UserAuthService;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -19,32 +21,38 @@ import java.util.concurrent.TimeUnit;
 public class LoginUtil
 {
     @Autowired
-    private RedisTemplate redisTemplate;
+    private static RedisTemplate redisTemplate;
 
-    public String getPublicKey(ArchUser archUser) throws NoSuchAlgorithmException{
+    @Autowired
+    private UserAuthService userAuthService;
+
+    public String getPublicKey() throws NoSuchAlgorithmException{
         //先从redis中取，如果不存在就在生成一次
-        //RSAPrivateKey key = (String)redisTemplate.opsForValue().get("privateKey");
+        String privateKey = (String)redisTemplate.opsForValue().get("privateKey");
+        String publicKey = (String)redisTemplate.opsForValue().get("publicKey");
         Map<String,Object> keyMap;
-        String publicKey;
 
-        keyMap=EncodeUtil.initKey();
-        publicKey = EncodeUtil.createPublicKeyStr(keyMap);
-        String privateKey = EncodeUtil.createPrivateKeyStr(keyMap);
-        String pubKeyStr = String.valueOf(archUser.getUserId()) + "_publicKey";
-        String priKeyStr = String.valueOf(archUser.getUserId()) + "_privateKey";
-        redisTemplate.opsForValue().set(pubKeyStr,publicKey, Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
-        redisTemplate.opsForValue().set(priKeyStr,privateKey,Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
+        if("".equals(privateKey) || StringUtil.isNullOrEmpty(privateKey)
+                || "".equals(publicKey) || StringUtil.isNullOrEmpty(publicKey)){
+            keyMap=EncodeUtil.initKey();
+            publicKey = EncodeUtil.createPublicKeyStr(keyMap);
+            privateKey = EncodeUtil.createPrivateKeyStr(keyMap);
+            redisTemplate.opsForValue().set("publicKey",publicKey, Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
+            redisTemplate.opsForValue().set("privateKey",privateKey,Constants.TOKEN_EXPIRE_HOUR, TimeUnit.HOURS);
+        }
+
         return publicKey ;
+
     }
 
-    public String decrybtPas(ArchUser archUser){
-        String priKeyStr = String.valueOf(archUser.getUserId()) + "_privateKey";
+    public static String decrybtPas(User user){
 
         String privateKey = (String)redisTemplate.opsForValue().get("privateKey");
 
         try {
-            byte[] passarr = EncodeUtil.decrybt(archUser.getPassword().getBytes(),privateKey);
+            byte[] passarr = EncodeUtil.decrybt(user.getPassWord().getBytes(),privateKey);
             String password = EncodeUtil.md5(new String(passarr));
+
             return password;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -62,6 +70,17 @@ public class LoginUtil
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static UserAuthReq loginAuth(UserAuthReq req){
+        User user = new User();
+        user.setPassWord(req.getPassWord());
+
+        String encodePassWord = decrybtPas(user);
+
+        req.setPassWord(encodePassWord);
+
+        return req;
     }
 
 

@@ -15,6 +15,18 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="user_status" jdbcType="BIT" property="userStatus" />
   </resultMap>
+
+  <select id="checkUserinfo" resultMap="BaseResultMap">
+    select * from user
+    where 1=1
+    <if test="nickName! = null and nickNamr !=''">and nick_name = #{nickName}</if>
+    <if test="email ! = null and email !=''">and email = #{email}</if>
+    <if test="phone != null and phone != ''">and phone = #{phone}</if>
+    <if test="passWord!=null and passWord !=''">and pass_word = #{passWord}</if>
+  </select>
+
+
+
   <insert id="insert" parameterType="com.example.appserver.model.entity.User">
     insert into user (user_id, nick_name, pass_word, 
       email, phone, city, 

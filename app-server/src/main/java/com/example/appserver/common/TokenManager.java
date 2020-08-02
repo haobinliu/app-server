@@ -1,6 +1,6 @@
 package com.example.appserver.common;
 
-import com.example.appserver.Dict.Constants;
+import com.example.appserver.common.dict.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -15,13 +15,13 @@ import java.util.concurrent.TimeUnit;
 public class TokenManager {
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private static StringRedisTemplate redisTemplate;
     /**
      * 生成一个令牌
      * @param userId 用户ID
      * @return 返回令牌
      */
-    public String createToken(int userId) {
+    public static String createToken(int userId) {
         //生成Token,使用uuid
         UUID uuid = UUID.randomUUID();
         String token = userId+"_arch"
@@ -38,7 +38,7 @@ public class TokenManager {
      * @param token
      * @return true or false
      */
-    public boolean checkToken(String token){
+    public static boolean checkToken(String token){
         //判断返回头是否存在
         if(token == null || "".equals(token)){
             return false;
@@ -70,7 +70,7 @@ public class TokenManager {
      * @param token
      * @return true or false
      */
-    public boolean cmToken(String token){
+    public static boolean cmToken(String token){
         //判断返回头是否存在token
         if(token == null || "".equals(token)){
             return false;

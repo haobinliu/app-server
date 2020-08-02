@@ -1,4 +1,4 @@
-package com.example.appserver.Dict;
+package com.example.appserver.common.dict;
 
 public class Constants {
     /**

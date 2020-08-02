@@ -1,6 +1,6 @@
 package com.example.appserver.common;
 
-import com.example.appserver.Dict.Constants;
+import com.example.appserver.common.dict.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Base64Utils;
@@ -21,7 +21,6 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class EncodeUtil {
 
