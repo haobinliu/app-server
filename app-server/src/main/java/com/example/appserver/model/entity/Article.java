@@ -8,23 +8,24 @@ import java.util.Date;
  */
 @Data
 public class Article {
+
     private Integer articleId;
 
-    private String title;
+    private String  title;
 
-    private String classifyId;
+    private String  classifyId;
 
     private Integer userId;
 
-    private Date createTime;
+    private Date    createTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Integer viewCount;
 
     private Integer favorCount;
 
-    private String content;
+    private String  content;
 
-    private Byte isValid;
+    private Byte    isValid;
 }

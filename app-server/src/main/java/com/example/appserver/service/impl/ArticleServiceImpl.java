@@ -7,6 +7,7 @@ import com.example.appserver.service.ArticleService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
             if (article == null){
                 return null;
             }
-            result = Arrays.asList(article);
+            result = Collections.singletonList(article);
         }else {
             return null;
         }

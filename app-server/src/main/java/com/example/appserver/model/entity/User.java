@@ -5,29 +5,33 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author liubinhao
+ */
 @Data
 public class User {
+
     private Integer userId;
 
-    private String nickName;
+    private String  nickName;
 
-    private String passWord;
+    private String  passWord;
 
-    private String email;
+    private String  email;
 
-    private String phone;
+    private String  phone;
 
-    private String city;
+    private String  city;
 
-    private Date birthday;
+    private Date    birthday;
 
     private Integer sex;
 
-    private Byte age;
+    private Byte    age;
 
-    private Date createTime;
+    private Date    createTime;
 
-    private Date updateTime;
+    private Date    updateTime;
 
     private Boolean userStatus;
 

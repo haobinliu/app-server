@@ -2,7 +2,6 @@ package com.example.appserver.service;
 
 import com.example.appserver.model.entity.ArticleComment;
 import com.example.appserver.model.req.DropCommentReq;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author liubinhao

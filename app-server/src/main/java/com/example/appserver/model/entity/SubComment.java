@@ -1,12 +1,14 @@
 package com.example.appserver.model.entity;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
  * @author liubinhao
  * @date 2020/7/14
  */
-
+@Data
 public class SubComment {
 
     private Integer subCommentId;
@@ -18,10 +20,10 @@ public class SubComment {
      */
     private Integer commentUserId;
 
-    private String commentContent;
+    private String  commentContent;
 
-    private Date createdTime;
+    private Date    createdTime;
 
-    private Date updatedTime;
+    private Date    updatedTime;
 
 }

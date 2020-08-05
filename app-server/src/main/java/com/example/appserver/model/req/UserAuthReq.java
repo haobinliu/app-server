@@ -14,23 +14,24 @@ public class UserAuthReq {
     /**
      * 登录
      */
-    private String nickName;
-    private String passWord;
+    private String  nickName;
+
+    private String  passWord;
 
     /**
      * 注册
      */
-    private String phone;
+    private String  phone;
 
-    private String email;
+    private String  email;
 
     private Integer sex;
 
     private Integer age;
-    //非必填
-    private Date birthday;
-    //非必填
-    private String city;
+
+    private Date    birthday;
+
+    private String  city;
 
 
 }

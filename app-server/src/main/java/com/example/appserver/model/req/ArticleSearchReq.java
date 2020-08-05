@@ -11,9 +11,9 @@ import java.util.List;
 @Data
 public class ArticleSearchReq {
 
-    private List<Integer> ArticleClassifyId;
+    private List<Integer> articleClassifyId;
 
-    private Integer userId;
+    private Integer       userId;
 
-    private Integer articleId;
+    private Integer       articleId;
 }

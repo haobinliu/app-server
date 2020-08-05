@@ -12,6 +12,6 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public Resource uploadFile(MultipartFile file) {
-        return null;
+        return new Resource();
     }
 }

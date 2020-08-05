@@ -18,18 +18,21 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author dsl
+ */
 public class LoginUtil
 {
     @Autowired
-    private static RedisTemplate redisTemplate;
+    private static RedisTemplate<String,String> redisTemplate;
 
     @Autowired
     private UserAuthService userAuthService;
 
     public String getPublicKey() throws NoSuchAlgorithmException{
         //先从redis中取，如果不存在就在生成一次
-        String privateKey = (String)redisTemplate.opsForValue().get("privateKey");
-        String publicKey = (String)redisTemplate.opsForValue().get("publicKey");
+        String privateKey = redisTemplate.opsForValue().get("privateKey");
+        String publicKey = redisTemplate.opsForValue().get("publicKey");
         Map<String,Object> keyMap;
 
         if("".equals(privateKey) || StringUtil.isNullOrEmpty(privateKey)
@@ -46,27 +49,15 @@ public class LoginUtil
     }
 
     public static String decrybtPas(User user){
-
         String privateKey = (String)redisTemplate.opsForValue().get("privateKey");
-
         try {
             byte[] passarr = EncodeUtil.decrybt(user.getPassWord().getBytes(),privateKey);
-            String password = EncodeUtil.md5(new String(passarr));
+            return EncodeUtil.md5(new String(passarr));
 
-            return password;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchAlgorithmException | IOException
+                | InvalidKeySpecException | NoSuchPaddingException
+                | InvalidKeyException | BadPaddingException
+                | IllegalBlockSizeException e) {
             e.printStackTrace();
         }
         return null;

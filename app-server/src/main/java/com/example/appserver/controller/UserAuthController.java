@@ -40,7 +40,7 @@ public class UserAuthController {
         }
     }
 
-    @PostMapping("/regist")
+    @PostMapping("/register")
     public CommonResponse regist(@RequestBody UserAuthReq req){
         UserAuthReq phoneUser = new UserAuthReq();
         UserAuthReq emailUser = new UserAuthReq();

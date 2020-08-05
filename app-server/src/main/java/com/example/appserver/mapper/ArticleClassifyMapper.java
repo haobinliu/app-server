@@ -3,6 +3,7 @@ package com.example.appserver.mapper;
 import com.example.appserver.model.entity.ArticleClassify;
 
 public interface ArticleClassifyMapper {
+
     int deleteByPrimaryKey(Integer classifyId);
 
     int insert(ArticleClassify record);

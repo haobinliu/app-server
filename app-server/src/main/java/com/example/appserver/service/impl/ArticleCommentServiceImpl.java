@@ -19,8 +19,6 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     private static final byte IS_VALID_FAIL = 0;
 
-    private static final byte IS_VALID_OK = 1;
-
     private static final Integer ARTICLE_LEVEL_MAIN = 1;
 
     private static final Integer ARTICLE_LEVEL_SUB = 2;
