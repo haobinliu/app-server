@@ -3,6 +3,8 @@ package com.example.appserver.service;
 import com.example.appserver.model.entity.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 /**
  * @author liubinhao
  * @date 2020/8/2
@@ -14,5 +16,5 @@ public interface ResourceService {
      * @param file 文件
      * @return 成功返回资源信息
      */
-    Resource uploadFile(MultipartFile file);
+    Resource uploadFile(MultipartFile file) throws IOException;
 }
