@@ -46,18 +46,17 @@ public class UserAuthController {
         UserAuthReq emailUser = new UserAuthReq();
 
         phoneUser.setPhone(req.getPhone());
-        phoneUser.setEmail(req.getEmail());
+        emailUser.setEmail(req.getEmail());
 
         Integer phoneRes = this.userAuthServicel.registCheck(phoneUser);
         Integer emailRes = this.userAuthServicel.registCheck(emailUser);
 
         if (phoneRes>0){
-            return CommonResponse.ok("手机号已被注册!");
-        }else if (emailRes>0){
-            return CommonResponse.ok("邮箱已被注册！");
+            return CommonResponse.fail("手机号已被注册!");
         }
-
-
+        if (emailRes>0){
+            return CommonResponse.fail("邮箱已被注册！");
+        }
         req = RegistUtil.registEncode(req);
 
         Integer regisRes = this.userAuthServicel.register(req);

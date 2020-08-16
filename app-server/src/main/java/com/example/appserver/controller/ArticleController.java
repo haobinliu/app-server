@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/article")
-public class ArticleContrller {
+public class ArticleController {
 
     @Resource
     private ArticleService articleService;
@@ -47,7 +47,7 @@ public class ArticleContrller {
     }
 
     @GetMapping("/favor")
-    public CommonResponse favorArticle(@RequestParam Integer articleId){
+    public CommonResponse<Void> favorArticle(@RequestParam Integer articleId){
         return CommonResponse.ok();
     }
 

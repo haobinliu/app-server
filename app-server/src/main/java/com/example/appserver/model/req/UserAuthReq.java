@@ -1,6 +1,8 @@
 package com.example.appserver.model.req;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
@@ -29,6 +31,7 @@ public class UserAuthReq {
 
     private Integer age;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date    birthday;
 
     private String  city;
