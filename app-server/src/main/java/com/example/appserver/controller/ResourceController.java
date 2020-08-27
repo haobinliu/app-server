@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * @author liubinhao
@@ -19,7 +20,7 @@ public class ResourceController {
     private ResourceService resourceService;
 
     @PostMapping("/upload")
-    public CommonResponse uploadFile(@RequestBody MultipartFile file){
+    public CommonResponse uploadFile(@RequestBody MultipartFile file) throws IOException {
         resourceService.uploadFile(file);
         return CommonResponse.ok();
     }

@@ -50,12 +50,12 @@ public class TokenManager {
         //从redis取出token进行检查
         String key = tokenArr[0]+"_token";
 
-//        String or_token = (String)redisTemplate.opsForValue().get(key);
-//        if(or_token == null || !"".equals(or_token)){
-//            return false;
-//        }else if(!token.equals(or_token)){
-//            return false;
-//        }
+        String redisToken = redisTemplate.opsForValue().get(key);
+        if(redisToken == null || !"".equals(redisToken)){
+            return false;
+        }else if(!token.equals(redisToken)){
+            return false;
+        }
         Boolean hasKey = redisTemplate.hasKey(key);
         if (!hasKey) {
             return false;

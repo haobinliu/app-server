@@ -17,21 +17,28 @@ import java.util.UUID;
  */
 public class ResourceServiceImpl implements ResourceService {
 
-    @Value("${}")
+    @Value("${upload.path}")
     private String filePath;
 
     @Override
     public Resource uploadFile(MultipartFile file) throws IOException {
         Resource resource = new Resource();
         String fileName = file.getOriginalFilename();
-        String s = UUID.randomUUID().toString();
-        String[] f = Objects.requireNonNull(file.getOriginalFilename()).split(".");
-        String fileType = f[f.length-1];
-        String fileUrl = filePath+s+"."+fileType;
-        file.transferTo(new File(fileUrl));
-        resource.setCreateTime(new Date());
-        resource.setResourceStatus(true);
-        resource.setResourceUrl(fileUrl);
+        try{
+            String s = UUID.randomUUID().toString();
+            String[] f = Objects.requireNonNull(fileName).split(".");
+            String fileType = f[f.length-1];
+            String fileUrl = filePath+s+"."+fileType;
+            file.transferTo(new File(fileUrl));
+            resource.setCreateTime(new Date());
+            resource.setResourceStatus(true);
+            resource.setResourceUrl(fileUrl);
+            resource.setResourceName(fileName);
+            resource.setUpdateTime(new Date());
+        }catch (Exception e){
+            resource.setResourceStatus(false);
+        }
+
         return resource;
     }
 }
