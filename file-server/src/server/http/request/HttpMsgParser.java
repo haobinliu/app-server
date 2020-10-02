@@ -1,4 +1,4 @@
-package com.example.appserver.server.http;
+package server.http.request;
 
 /**
  * @author liubh

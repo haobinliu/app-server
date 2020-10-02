@@ -1,23 +1,20 @@
-package com.example.appserver.server;
+package server;
 
-import com.example.appserver.server.http.HttpMsgParser;
-import com.example.appserver.server.http.HttpReceivedMsg;
-import lombok.Data;
-
+import server.http.request.HttpMsgParser;
+import server.http.request.HttpReceivedMsg;
 import java.io.InputStream;
 import java.net.Socket;
+import java.security.spec.PSSParameterSpec;
 import java.util.concurrent.Callable;
-
 
 /**
  * @author liubinhao
  * @date 2020/8/5
  */
-@Data
+
 public class ConnectionHandler implements Callable<HttpReceivedMsg> {
 
     private Socket connection;
-
     public ConnectionHandler(Socket connection){
         this.connection = connection;
     }

@@ -1,5 +1,6 @@
 package com.example.appserver.controller;
 
+import com.carrotsearch.sizeof.RamUsageEstimator;
 import com.example.appserver.common.CommonResponse;
 import com.example.appserver.common.LoginUtil;
 import com.example.appserver.common.RegistUtil;
@@ -8,6 +9,7 @@ import com.example.appserver.model.entity.User;
 import com.example.appserver.model.req.UserAuthReq;
 import com.example.appserver.model.vo.UserAuthRes;
 import com.example.appserver.service.UserAuthService;
+import org.openjdk.jol.info.ClassLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,5 +63,17 @@ public class UserAuthController {
 
         Integer regisRes = this.userAuthServicel.register(req);
         return CommonResponse.ok(regisRes);
+    }
+
+    public static void main(String[] args) {
+        UserAuthReq userAuthReq = new UserAuthReq();
+        UserAuthReq userAuthReq2 = new UserAuthReq();
+        Object a = "abcdef";
+        Object b = "飞流直下三千尺疑是银河落九天不识庐山真面目只缘身在此山中飞流直下三千尺疑是银河落九天不识庐山真面目只缘身在此山中飞流直下三千尺疑是银河落九天不识庐山真面目只缘身在此山中";
+        String s = ClassLayout.parseInstance(a).toPrintable();
+
+        String e = ClassLayout.parseInstance(b).toPrintable();
+        System.out.println(s);
+        System.out.println(e);
     }
 }
